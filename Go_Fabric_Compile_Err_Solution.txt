@@ -1,0 +1,4 @@
+cd $GOPATH/src/github.com
+mkdir hyperledger
+cd hyperledger
+git clone http://gerrit.hyperledger.org/r/fabric

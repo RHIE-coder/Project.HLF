@@ -200,18 +200,14 @@ func (t *SimpleChaincode) readMarblePrivateDetails(stub shim.ChaincodeStubInterf
 	var err error
 
 	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting name of the marble to query")
+		return shim.Error("Incorrect number of arguments. Expecting 1")
 	}
 
 	name = args[0]
-	valAsbytes, err := stub.GetPrivateData("collectionMarblePrivateDetails", name) //get the marble private details from chaincode state
-	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get private details for " + name + ": " + err.Error() + "\"}"
-		return shim.Error(jsonResp)
-	} else if valAsbytes == nil {
-		jsonResp = "{\"Error\":\"Marble private details does not exist: " + name + "\"}"
-		return shim.Error(jsonResp)
-	}
+	valAsbytes, err := stub.GetPrivateData("collectionMarblePrivateDetails", name)
+
+	UserAsBytes, _ := APIstub.GetState(args[0])
+	return shim.Success(UserAsBytes)
 
 	return shim.Success(valAsbytes)
 }
