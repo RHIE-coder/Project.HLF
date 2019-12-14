@@ -39,27 +39,17 @@ func (pc *pretzelChaincode) Invoke(stub shim.ChaincodeStubInterface) pe.Response
 	fmt.Println("invoke is running" + function)
 	fmt.Println("args : ", args)
 
+
+
 	switch function {
-	case "inputExampleData":
+	case "inputWS":
 		return pc.inputExampleData(stub, args)
-	case "inputExampleOrg1PD":
-		return pc.inputExamplePD("inputExampleOrg1PD", stub, args)
-	case "inputExampleOrg2PD":
-		return pc.inputExamplePD("inputExampleOrg2PD", stub, args)
-	case "inputExampleOrg3PD":
-		return pc.inputExamplePD("inputExampleOrg3PD", stub, args)
-	case "inputExampleOrg1Org2PD":
-		return pc.inputExamplePD("inputExampleOrg1Org2PD", stub, args)
-	case "readExampleData":
+	case "inputPD":
+		return pc.inputExamplePD(stub, args)
+	case "readWS":
 		return pc.readExampleData(stub, args)
-	case "readExampleOrg1PD":
-		return pc.readExamplePD("readExampleOrg1PD", stub, args)
-	case "readExampleOrg2PD":
-		return pc.readExamplePD("readExampleOrg2PD", stub, args)
-	case "readExampleOrg3PD":
-		return pc.readExamplePD("readExampleOrg3PD", stub, args)
-	case "readExampleOrg1Org2PD":
-		return pc.readExamplePD("readExampleOrg1Org2PD", stub, args)
+	case "readPD":
+		return pc.readExamplePD(stub, args)
 	default:
 		fmt.Println("invoke did not find func:" + function)
 		return shim.Error("Received unknown function invocation")
@@ -91,9 +81,10 @@ func (pc *pretzelChaincode) inputExampleData(stub shim.ChaincodeStubInterface, a
 }
 
 //money
-func (pc *pretzelChaincode) inputExamplePD(pdName string, stub shim.ChaincodeStubInterface, args []string) pe.Response {
+func (pc *pretzelChaincode) inputExamplePD(stub shim.ChaincodeStubInterface, args []string) pe.Response {
 	username := args[0]
 	money, _ := strconv.ParseInt(args[1], 0, 0)
+	pdName := args[2]
 	epdAsBytes, err := stub.GetPrivateData(pdName, username)
 	if epdAsBytes == nil {
 		fmt.Println("no data. You can input the new data")
@@ -117,7 +108,8 @@ func (pc *pretzelChaincode) readExampleData(stub shim.ChaincodeStubInterface, ar
 	}
 	return shim.Success(data)
 }
-func (pc *pretzelChaincode) readExamplePD(pdName string, stub shim.ChaincodeStubInterface, args []string) pe.Response {
+func (pc *pretzelChaincode) readExamplePD(stub shim.ChaincodeStubInterface, args []string) pe.Response {
+	pdName := args[1]
 	data, err := stub.GetPrivateData(pdName, args[0])
 	if err != nil {
 		shim.Error("readExamplePD() Error")

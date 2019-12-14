@@ -56,6 +56,7 @@ async function cc_call(fn_name, args){
         result = "function is not found"
     }
     
+    return result
 }
 
 app.post('/inputWS', async(req, res)=>{
