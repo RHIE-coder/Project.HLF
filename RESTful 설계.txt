@@ -1,5 +1,0 @@
-/					get
-/transfer?var=value				post
-/transfer/history/query?var=value		post
-/account/{account}/read			post
-/account/create				post

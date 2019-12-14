@@ -1,4 +1,7 @@
-cd $GOPATH/src/github.com
-mkdir hyperledger
-cd hyperledger
-git clone http://gerrit.hyperledger.org/r/fabric
+mkdir -p $GOPATH/src/github.com/hyperledger
+cd %GOPATH/src/github.com/hyperledger
+git clone -b release-1.4 https://github.com/hyperledger/fabric.git
+
+#gcc compile problem
+#   ex) package main >>> Error
+sudo apt-get install build-essential
