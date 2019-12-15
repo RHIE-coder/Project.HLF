@@ -10,7 +10,7 @@ set -ev
 function replacePrivateKey() {
     echo "ca key file exchange"
     cp docker-compose-template.yml docker-compose.yml
-    PRIV_KEY=$(ls crypto-config/peerOrganizations/org1.example.com/ca/ | grep _sk)
+    PRIV_KEY=$(ls crypto-config/peerOrganizations/org1.pretzel.com/ca/ | grep _sk)
     sed -i "s/CA_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose.yml
 }
 
@@ -34,7 +34,7 @@ docker-compose -f docker-compose.yml down
 
 replacePrivateKey
 
-docker-compose -f docker-compose.yml up -d ca.example.com orderer.example.com couchdb1 couchdb2 couchdb3 peer0.org1.example.com  peer0.org2.example.com peer0.org3.example.com cli
+docker-compose -f docker-compose.yml up -d ca.pretzel.com orderer.pretzel.com couchdb1 couchdb2 couchdb3 peer0.org1.pretzel.com  peer0.org2.pretzel.com peer0.org3.pretzel.com cli
 docker ps -a
 
 # wait for Hyperledger Fabric to start
@@ -44,13 +44,13 @@ export FABRIC_START_TIMEOUT=10
 sleep ${FABRIC_START_TIMEOUT}
 
 # Create the channel
-docker exec cli peer channel create -o orderer.example.com:7050 -c pretzelchannel -f /etc/hyperledger/configtx/channel.tx
-# Join peer0.org1.example.com to the channel.
-docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.example.com/msp" peer0.org1.example.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
+docker exec cli peer channel create -o orderer.pretzel.com:7050 -c pretzelchannel -f /etc/hyperledger/configtx/channel.tx
+# Join peer0.org1.pretzel.com to the channel.
+docker exec -e "CORE_PEER_LOCALMSPID=Org1MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org1.pretzel.com/msp" peer0.org1.pretzel.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
 sleep 5
-# Join peer0.org2.example.com to the channel.
-docker exec -e "CORE_PEER_LOCALMSPID=Org2MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org2.example.com/msp" peer0.org2.example.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
+# Join peer0.org2.pretzel.com to the channel.
+docker exec -e "CORE_PEER_LOCALMSPID=Org2MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org2.pretzel.com/msp" peer0.org2.pretzel.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
 sleep 5
-# Join peer0.org2.example.com to the channel.
-docker exec -e "CORE_PEER_LOCALMSPID=Org3MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org3.example.com/msp" peer0.org3.example.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
+# Join peer0.org2.pretzel.com to the channel.
+docker exec -e "CORE_PEER_LOCALMSPID=Org3MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org3.pretzel.com/msp" peer0.org3.pretzel.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
 sleep 5

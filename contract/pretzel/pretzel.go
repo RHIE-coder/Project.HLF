@@ -15,12 +15,12 @@ type pretzelChaincode struct {
 
 //exampleData
 type exampleData struct {
-	username string `json:"username"`
-	age      int    `json:"age"`
+	Username string `json:"username"`
+	Age      int    `json:"age"`
 }
 
 type examplePD struct {
-	money int `json:"money"`
+	Money int `json:"money"`
 }
 
 func main() {
@@ -31,15 +31,19 @@ func main() {
 }
 
 func (pc *pretzelChaincode) Init(stub shim.ChaincodeStubInterface) pe.Response {
-	return shim.Success(nil)
+	doc := `
+	{
+		"username":"maria",
+		"age":10
+	}
+	`
+	return shim.Success([]byte(doc))
 }
 
 func (pc *pretzelChaincode) Invoke(stub shim.ChaincodeStubInterface) pe.Response {
 	function, args := stub.GetFunctionAndParameters()
 	fmt.Println("invoke is running" + function)
 	fmt.Println("args : ", args)
-
-
 
 	switch function {
 	case "inputWS":
@@ -50,9 +54,13 @@ func (pc *pretzelChaincode) Invoke(stub shim.ChaincodeStubInterface) pe.Response
 		return pc.readExampleData(stub, args)
 	case "readPD":
 		return pc.readExamplePD(stub, args)
+	case "M":
+		return pc.checkMultiData(stub, args)
+	case "S":
+		return pc.checkSingleiData(stub, args)
 	default:
 		fmt.Println("invoke did not find func:" + function)
-		return shim.Error("Received unknown function invocation")
+		return shim.Error("Received unknown function invocation : " + function)
 	}
 }
 
@@ -72,8 +80,8 @@ func (pc *pretzelChaincode) inputExampleData(stub shim.ChaincodeStubInterface, a
 	}
 
 	edws := exampleData{}
-	edws.username = username
-	edws.age = int(age)
+	edws.Username = username
+	edws.Age = int(age)
 	jsonBytesObj, _ := json.Marshal(edws)
 
 	stub.PutState(username, jsonBytesObj) //error return
@@ -95,7 +103,7 @@ func (pc *pretzelChaincode) inputExamplePD(stub shim.ChaincodeStubInterface, arg
 		return shim.Error("inputExamplePD() Error")
 	}
 	epd := examplePD{}
-	epd.money = int(money)
+	epd.Money = int(money)
 	jsonBytesObj, _ := json.Marshal(epd)
 	stub.PutPrivateData(pdName, username, jsonBytesObj) //error return
 	return shim.Success(jsonBytesObj)
@@ -115,4 +123,29 @@ func (pc *pretzelChaincode) readExamplePD(stub shim.ChaincodeStubInterface, args
 		shim.Error("readExamplePD() Error")
 	}
 	return shim.Success(data)
+}
+
+func (pc *pretzelChaincode) checkMultiData(stub shim.ChaincodeStubInterface, args []string) pe.Response {
+	a := args[0]
+	b := args[1]
+	type checker struct {
+		A string `json:"a"`
+		B string `json:"b"`
+	}
+	ch := checker{}
+	ch.A = a
+	ch.B = b
+	obj, _ := json.Marshal(ch)
+	return shim.Success([]byte(obj))
+}
+
+func (pc *pretzelChaincode) checkSingleiData(stub shim.ChaincodeStubInterface, args []string) pe.Response {
+	a := args[0]
+	type checker struct {
+		A string `json:"a"`
+	}
+	ch := checker{}
+	ch.A = a
+	obj, _ := json.Marshal(ch)
+	return shim.Success([]byte(obj))
 }
