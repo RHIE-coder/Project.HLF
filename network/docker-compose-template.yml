@@ -220,6 +220,7 @@ services:
         - ./../contract/:/opt/gopath/src/github.com/
         - ./crypto-config:/etc/hyperledger/crypto
         - ./config:/etc/hyperledger/configtx
+        - ./container-sh-script:/home
     networks:
         - basic
     #depends_on:

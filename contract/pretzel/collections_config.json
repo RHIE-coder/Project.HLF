@@ -17,15 +17,7 @@
   },
   {
     "name": "collectionOrg3PD",
-    "policy": "OR('Org3MSP.member')",
-    "requiredPeerCount": 0,
-    "maxPeerCount": 3,
-    "blockToLive":0,
-    "memberOnlyRead": true
-  },
-  {
-    "name": "collectionOrg1Org2PD",
-    "policy": "AND('Org1MSP.member','Org2MSP.member')",
+    "policy": "OR('Org1MSP.member','Org2MSP.member','Org3MSP.member')",
     "requiredPeerCount": 0,
     "maxPeerCount": 3,
     "blockToLive":0,

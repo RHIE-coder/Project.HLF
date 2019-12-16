@@ -1,4 +1,4 @@
-// ExpressJS Setup
+2// ExpressJS Setup
 const express = require('express');
 const app = express();
 let bodyParser = require('body-parser');
@@ -40,8 +40,8 @@ async function cc_call(fn_name, args){
     const gateway = new Gateway()
     await gateway.connect(ccp,{wallet,identity:'user1',discovery:{enabled:false}})
     const network = await gateway.getNetwork('pretzelchannel')
-    const contract = network.getContract('pretzel')
-
+    const contract = network.getContract('pretzel2')
+    console.log("into the chaincode methods")
     let result;
     //inputExampleData() inputExamplePD() readExampleData() readExamplePD()
     if (fn_name === 'inputWS'){

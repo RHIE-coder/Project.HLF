@@ -13,19 +13,19 @@ channels:
         orderers:
         - orderer.pretzel.com
         peers:
-            peer0.org1.pretzel.com: {}
+            peer0.Org1.pretzel.com: {}
 organizations:
     Org1:
         mspid: Org1MSP
         peers:
-        - peer0.org1.pretzel.com
+        - peer0.Org1.pretzel.com
         certificateAuthorities:
         - ca.pretzel.com
 orderers:
     orderer.pretzel.com:
         url: grpc://localhost:7050
 peers:
-    peer0.org1.pretzel.com:
+    peer0.Org1.pretzel.com:
         url: grpc://localhost:7051
 certificateAuthorities:
     ca.pretzel.com:
