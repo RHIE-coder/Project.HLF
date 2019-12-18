@@ -93,19 +93,20 @@ func (pc *pretzelChaincode2) inputexamplePD2(stub shim.ChaincodeStubInterface, a
 	username := args[0]
 	money, _ := strconv.ParseInt(args[1], 0, 0)
 	pdName := args[2]
-	epdAsBytes, err := stub.GetPrivateData(pdName, username)
-	if epdAsBytes == nil {
-		fmt.Println("no data. You can input the new data")
-	} else {
-		return shim.Error("there are already Data")
-	}
-	if err != nil {
-		return shim.Error("inputexamplePD2() Error")
-	}
+	// epdAsBytes, err := stub.GetPrivateData(pdName, username)
+	// if epdAsBytes == nil {
+	// 	fmt.Println("no data. You can input the new data")
+	// } else {
+	// 	return shim.Error("there are already Data")
+	// }
+	// if err != nil {
+	// 	return shim.Error("inputexamplePD2() Error")
+	// }
 	epd := examplePD2{}
 	epd.Money = int(money)
 	jsonBytesObj, _ := json.Marshal(epd)
 	stub.PutPrivateData(pdName, username, jsonBytesObj) //error return
+
 	return shim.Success(jsonBytesObj)
 }
 

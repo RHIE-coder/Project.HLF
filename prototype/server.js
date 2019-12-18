@@ -52,7 +52,7 @@ async function cc_call(fn_name, args){
         const u = args[0]
         const m = args[1]
         const p = args[2]
-        result = await contract.submitTransaction('inputPD', u,m,p)
+        result = await contract.createTransaction('inputPD', u,m,p)
     }else if(fn_name === 'readWS'){
         result = await contract.evaluateTransaction('readWS',args)
     }else if(fn_name === 'readPD'){
@@ -102,6 +102,7 @@ app.post('/readPD', async (req,res)=>{
     let args = [username,pdName]
     let result = await cc_call('readPD',args)
     res.status(200).json(JSON.parse(result))
+
 });
 
 app.post('/M', async (req,res)=>{

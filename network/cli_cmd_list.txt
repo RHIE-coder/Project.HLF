@@ -14,8 +14,18 @@ export CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peerOrganizations/org3.pr
 export CORE_PEER_ADDRESS=peer0.org3.pretzel.com:7051
 
 
+peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg4PD"]}'
+peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg5PD"]}'
+peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg6PD"]}'
+
+peer chaincode query -n pretzel2 -C pretzelchannel -c '{"Args":["readPD","user1","collectionOrg4PD"]}'
+peer chaincode query -n pretzel2 -C pretzelchannel -c '{"Args":["readPD","user1","collectionOrg5PD"]}'
+peer chaincode query -n pretzel2 -C pretzelchannel -c '{"Args":["readPD","user1","collectionOrg6PD"]}'
+
+
+
 #install
-peer chaincode install -n pretzel -v 1.0 -p github.com/pretzel
+peer chaincode install -n pretzel -v 1.0 -p github.com/pretzel 
 peer chaincode install -n pretzel2 -v 1.0 -p github.com/pretzel2
 
 #instantiate(only world state)
@@ -25,3 +35,4 @@ peer chaincode instantiate -n pretzel -v 1.0 -C pretzelchannel -c ' {"Args":[]}'
 peer chaincode instantiate -n pretzel -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel/collections_config.json
 peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel/collections_config.json
 peer chaincode instantiate -o orderer.pretzel.com:7050 -n pretzel -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel/collections_config.json
+
