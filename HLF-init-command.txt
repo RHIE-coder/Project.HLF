@@ -1,0 +1,45 @@
+[ubuntu]
+* curl 설치 :
+sudo apt-get install curl
+
+* docker 설치 :
+sudo apt install docker.io
+sudo apt install docker-compose
+sudo apt install software-properties-common
+
+sudo usermod -aG docker $USER #현재 접속중인 사용자에게 권한주기
+
+* node.js 설치 :
+sudo apt-get update
+sudo apt-get install build-essential libssl-dev
+curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh -o install_nvm.sh
+bash install_nvm.sh
+source ~/.profile
+nvm install v8.11.1
+
+* golang 설치 :
+curl -O https://storage.googleapis.com/golang/go1.11.2.linux-amd64.tar.gz
+tar -xvf go1.11.2.linux-amd64.tar.gz
+sudo mv go /usr/local
+sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
+vi ~/.profile
+	export GOPATH=$HOME/go
+	export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+source ~/.profile
+
+* python 설치 :
+sudo apt install -y python
+
+* git 설치 :
+sudo apt install -y git
+
+=== docker 초기화
+remove container > docker rm -f $(docker ps -aq)
+remove image > docker rmi -f $(docker images dev-* -q)
+remove network > docker network prune
+
+=== node.js add dependencies
+npm install fabric-ca-client fabric-client fabric-network
+
+=== HLF
+git clone https://github.com/hyperledger/fabric-samples.git
