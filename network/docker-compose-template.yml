@@ -58,12 +58,13 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
       - CORE_PEER_ADDRESS=peer0.org1.pretzel.com:7051
       # #  add config to private data
-      - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      - CORE_PEER_GOSSIP_ORGLEADER=false
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.example.com:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      # - CORE_PEER_GOSSIP_ORGLEADER=false
+      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.pretzel.com:7051
+      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.pretzel.com:7051
+      # - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      # - CORE_PEER_CHAINCODEADDRESS=peer0.org1.pretzel.com:7052
+      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
@@ -102,14 +103,15 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=info
       - CORE_PEER_LOCALMSPID=Org2MSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer0.org2.pretzel.com:7051
+      - CORE_PEER_ADDRESS=peer0.org2.pretzel.com:8051
       # #  add config to private data
-      - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      - CORE_PEER_GOSSIP_ORGLEADER=false
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.example.com:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      # - CORE_PEER_GOSSIP_ORGLEADER=false
+      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.pretzel.com:8051
+      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.pretzel.com:8051
+      # - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      # - CORE_PEER_CHAINCODEADDRESS=peer0.org2.pretzel.com:8052
+      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
@@ -125,8 +127,8 @@ services:
     command: peer node start
     # command: peer node start --peer-chaincodedev=true
     ports:
-      - 8051:7051
-      - 8053:7053
+      - 8051:8051
+      - 8053:8053
     volumes:
         - /var/run/:/host/var/run/
         - ./crypto-config/peerOrganizations/org2.pretzel.com/peers/peer0.org2.pretzel.com/msp:/etc/hyperledger/msp/peer
@@ -148,14 +150,15 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=info
       - CORE_PEER_LOCALMSPID=Org3MSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer0.org3.pretzel.com:7051
+      - CORE_PEER_ADDRESS=peer0.org3.pretzel.com:9051
       # #  add config to private data
-      - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      - CORE_PEER_GOSSIP_ORGLEADER=false
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.example.com:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org3.example.com:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      # - CORE_PEER_GOSSIP_ORGLEADER=false
+      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.pretzel.com:9051      
+      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.pretzel.com:9051
+      # - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      # - CORE_PEER_CHAINCODEADDRESS=peer0.org3.pretzel.com:9052
+      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
@@ -171,8 +174,8 @@ services:
     command: peer node start
     # command: peer node start --peer-chaincodedev=true
     ports:
-      - 9051:7051
-      - 9053:7053
+      - 9051:9051
+      - 9053:9053
     volumes:
         - /var/run/:/host/var/run/
         - ./crypto-config/peerOrganizations/org3.pretzel.com/peers/peer0.org3.pretzel.com/msp:/etc/hyperledger/msp/peer

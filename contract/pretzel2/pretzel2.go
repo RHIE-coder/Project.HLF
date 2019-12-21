@@ -31,13 +31,7 @@ func main() {
 }
 
 func (pc *pretzelChaincode2) Init(stub shim.ChaincodeStubInterface) pe.Response {
-	doc := `
-	{
-		"username":"maria",
-		"age":10
-	}
-	`
-	return shim.Success([]byte(doc))
+	return shim.Success(nil)
 }
 
 func (pc *pretzelChaincode2) Invoke(stub shim.ChaincodeStubInterface) pe.Response {
@@ -90,9 +84,18 @@ func (pc *pretzelChaincode2) inputexampleData2(stub shim.ChaincodeStubInterface,
 
 //money
 func (pc *pretzelChaincode2) inputexamplePD2(stub shim.ChaincodeStubInterface, args []string) pe.Response {
-	username := args[0]
-	money, _ := strconv.ParseInt(args[1], 0, 0)
-	pdName := args[2]
+	var err error
+	pdName := args[0]
+	transMap, err := stub.GetTransient()
+	type pdInput struct {
+		Username string `json:"username"`
+		Money    int    `json:"money"`
+	}
+	if err != nil {
+		return shim.Error("inputexamplePD2() Error")
+	}
+	pdin := pdInput{}
+	err = json.Unmarshal(transMap["data"], &pdin)
 	// epdAsBytes, err := stub.GetPrivateData(pdName, username)
 	// if epdAsBytes == nil {
 	// 	fmt.Println("no data. You can input the new data")
@@ -103,7 +106,8 @@ func (pc *pretzelChaincode2) inputexamplePD2(stub shim.ChaincodeStubInterface, a
 	// 	return shim.Error("inputexamplePD2() Error")
 	// }
 	epd := examplePD2{}
-	epd.Money = int(money)
+	username := pdin.Username
+	epd.Money = pdin.Money
 	jsonBytesObj, _ := json.Marshal(epd)
 	stub.PutPrivateData(pdName, username, jsonBytesObj) //error return
 

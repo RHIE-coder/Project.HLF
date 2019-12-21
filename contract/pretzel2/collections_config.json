@@ -5,8 +5,7 @@
    "requiredPeerCount": 0,
    "maxPeerCount": 3,
    "blockToLive":0,
-   "memberOnlyRead": false,
-   "memberOnlyWrite":true
+   "memberOnlyRead": true
   },
   {
   "name": "collectionOrg5PD",
@@ -14,8 +13,7 @@
   "requiredPeerCount": 0,
   "maxPeerCount": 3,
   "blockToLive":0,
-  "memberOnlyRead": false,
-  "memberOnlyWrite":true
+  "memberOnlyRead": true
   },
   {
     "name": "collectionOrg6PD",
@@ -23,7 +21,6 @@
     "requiredPeerCount": 0,
     "maxPeerCount": 3,
     "blockToLive":0,
-    "memberOnlyRead": false,
-    "memberOnlyWrite":true
+    "memberOnlyRead": true
   }
 ]

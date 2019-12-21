@@ -6,15 +6,15 @@ export CORE_PEER_ADDRESS=peer0.org1.pretzel.com:7051
 #peer0.org2.pretzel.com
 export CORE_PEER_LOCALMSPID=Org2MSP
 export CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peerOrganizations/org2.pretzel.com/users/Admin@org2.pretzel.com/msp
-export CORE_PEER_ADDRESS=peer0.org2.pretzel.com:7051
+export CORE_PEER_ADDRESS=peer0.org2.pretzel.com:8051
 
 #peer0.org3.pretzel.com
 export CORE_PEER_LOCALMSPID=Org3MSP
 export CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peerOrganizations/org3.pretzel.com/users/Admin@org3.pretzel.com/msp
-export CORE_PEER_ADDRESS=peer0.org3.pretzel.com:7051
+export CORE_PEER_ADDRESS=peer0.org3.pretzel.com:9051
 
-
-peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg4PD"]}'
+export DATA=$(echo -n "{\"username\":\"user1\",\"money\":10}" | base64 | tr -d \\n)
+peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","collectionOrg4PD"]}' --transient "{\"data\":\"$DATA\"}"
 peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg5PD"]}'
 peer chaincode invoke -n pretzel2 -C pretzelchannel -c '{"Args":["inputPD","user1","1000","collectionOrg6PD"]}'
 

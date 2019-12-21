@@ -50,7 +50,7 @@ Organizations:
         MSPDir: crypto-config/peerOrganizations/org2.pretzel.com/msp
         AnchorPeers:
             - Host: peer0.org2.pretzel.com
-              Port: 7051
+              Port: 8051
     
     - &Org3
         Name: Org3MSP
@@ -58,7 +58,7 @@ Organizations:
         MSPDir: crypto-config/peerOrganizations/org3.pretzel.com/msp
         AnchorPeers:
             - Host: peer0.org3.pretzel.com
-              Port: 7051             
+              Port: 9051             
 
 ################################################################################
 #
