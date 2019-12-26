@@ -58,14 +58,14 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
       - CORE_PEER_ADDRESS=peer0.org1.pretzel.com:7051
       # #  add config to private data
-      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      # - CORE_PEER_GOSSIP_ORGLEADER=false
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.pretzel.com:7051
-      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.pretzel.com:7051
-      # - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      # - CORE_PEER_CHAINCODEADDRESS=peer0.org1.pretzel.com:7052
-      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      # # the following setting starts chaincode containers on the same
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.pretzel.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.pretzel.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.pretzel.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
@@ -105,13 +105,13 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
       - CORE_PEER_ADDRESS=peer0.org2.pretzel.com:8051
       # #  add config to private data
-      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      # - CORE_PEER_GOSSIP_ORGLEADER=false
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.pretzel.com:8051
-      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.pretzel.com:8051
-      # - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-      # - CORE_PEER_CHAINCODEADDRESS=peer0.org2.pretzel.com:8052
-      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.pretzel.com:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.pretzel.com:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.pretzel.com:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
@@ -152,13 +152,13 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
       - CORE_PEER_ADDRESS=peer0.org3.pretzel.com:9051
       # #  add config to private data
-      # - CORE_PEER_GOSSIP_USELEADERELECTION=true
-      # - CORE_PEER_GOSSIP_ORGLEADER=false
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.pretzel.com:9051      
-      # - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.pretzel.com:9051
-      # - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      # - CORE_PEER_CHAINCODEADDRESS=peer0.org3.pretzel.com:9052
-      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.pretzel.com:9051      
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.pretzel.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org3.pretzel.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
@@ -240,13 +240,21 @@ services:
     working_dir: /etc/hyperledger/configtx
     command: /bin/bash
     volumes:
-        - /var/run/:/host/var/run/
-        - ./../contract/:/opt/gopath/src/github.com/
-        - ./crypto-config:/etc/hyperledger/crypto
-        - ./config:/etc/hyperledger/configtx
-        - ./container-sh-script:/home
+      - /var/run/:/host/var/run/
+      - ./../contract/:/opt/gopath/src/github.com/
+      - ./crypto-config:/etc/hyperledger/crypto
+      - ./config:/etc/hyperledger/configtx
+      - ./container-sh-script:/home
     networks:
-        - basic
+      - basic
+    depends_on:
+      - orderer.pretzel.com
+      - peer0.org1.pretzel.com
+      - peer0.org2.pretzel.com
+      - peer0.org3.pretzel.com
+    networks:
+      - basic
+
     #depends_on:
     #  - orderer.pretzel.com
     #  - peer0.org1.pretzel.com

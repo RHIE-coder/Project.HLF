@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 # Exit on first error, print all commands.
-set -ev
+set -x
 
 function replacePrivateKey() {
     echo "ca key file exchange"
