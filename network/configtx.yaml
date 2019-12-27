@@ -76,16 +76,16 @@ Organizations:
 
         MSPDir: crypto-config/peerOrganizations/org3.pretzel.com/msp
 
-        # Policies:
-        #     Readers:
-        #         Type: Signature
-        #         Rule: "OR('Org3MSP.admin', 'Org3MSP.peer', 'Org3MSP.client')"
-        #     Writers:
-        #         Type: Signature
-        #         Rule: "OR('Org3MSP.admin', 'Org3MSP.client')"
-        #     Admins:
-        #         Type: Signature
-        #         Rule: "OR('Org3MSP.admin')"
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('Org3MSP.admin', 'Org3MSP.peer', 'Org3MSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('Org3MSP.admin', 'Org3MSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('Org3MSP.admin')"
 
         AnchorPeers:
             - Host: peer0.org3.pretzel.com
@@ -136,9 +136,9 @@ Orderer: &OrdererDefaults
 
         PreferredMaxBytes: 512 KB
 
-    # Kafka:
-    #     Brokers:
-    #         - 127.0.0.1:9092
+    Kafka:
+        Brokers:
+            - 127.0.0.1:9092
 
     # EtcdRaft:
     #     Consenters:

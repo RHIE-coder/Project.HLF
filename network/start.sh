@@ -54,3 +54,4 @@ sleep 5
 # Join peer0.org3.pretzel.com to the channel.
 docker exec -e "CORE_PEER_LOCALMSPID=Org3MSP" -e "CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/users/Admin@org3.pretzel.com/msp" peer0.org3.pretzel.com peer channel join -b /etc/hyperledger/configtx/pretzelchannel.block
 sleep 5
+set +x
