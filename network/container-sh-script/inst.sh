@@ -72,9 +72,9 @@ echo "instantiating..."
 # peer chaincode instantiate -n pretzel -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")'
 # peer chaincode instantiate -n pretzel -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel/collections_config.json
 # sleep 5
-peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}'
+# peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}'
 # peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")'
-# peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel2/collections_config.json
+peer chaincode instantiate -n pretzel2 -v 1.0 -C pretzelchannel -c '{"Args":[]}' -P 'OR ("Org1MSP.member", "Org2MSP.member","Org3MSP.member")' --collections-config /opt/gopath/src/github.com/pretzel2/collections_config.json
 sleep 5
 peer chaincode list --instantiated -C pretzelchannel
 #"OR('Org1MSP.member','Org2MSP.member','Org3MSP.member')"
